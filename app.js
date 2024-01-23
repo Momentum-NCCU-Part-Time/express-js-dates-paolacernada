@@ -1,8 +1,6 @@
 const express = require('express');
 
 const dayjs = require('dayjs');
-//import dayjs from 'dayjs' // ES 2015
-dayjs().format();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -56,15 +54,15 @@ app.get('/api/dates/yesterday', (req, res) => {
 app.get('/api/day-of-week/:year/:month/:day', (req, res) => {
 
     const year = req.params.year;
-
+    console.log(year)
     // The month index needs to be adjusted as get or set for the month accepts numbers from 0 to 11
     const month = req.params.month - 1;
-
+    console.log(month)
     const day = req.params.day;
-
+    console.log(day)
     // Create a new object for the date
     const date = dayjs(new Date(year, month, day));
-
+    console.log(date)
     const dayOfTheWeek = date.format("dddd");
   
     res.json({ "day of the week": dayOfTheWeek });
@@ -96,6 +94,7 @@ app.get('/api/current-time', (req, res) => {
   }
 });
 
+
 // Returns the current timestamp in milliseconds. 
 // This endpoint should accept a query parameter called format that can be used to change the format 
 // of the timestamp. For example, /api/timestamp?format=seconds returns the timestamp in seconds. 
@@ -117,4 +116,3 @@ app.get('*', function (req, res) {
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
-
