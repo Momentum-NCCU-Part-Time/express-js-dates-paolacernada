@@ -1,6 +1,8 @@
 const express = require('express');
 
 const dayjs = require('dayjs');
+//import dayjs from 'dayjs' // ES 2015
+dayjs().format()
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,7 +29,7 @@ app.get('/api/dates/today', (req, res) => {
 
     const currentDate = dayjs().format("dddd MMM DD, YYYY");
   
-    res.json({ "Current date": currentDate });
+    res.status(200).json({ "Current date": currentDate });
   });
 
 
@@ -36,7 +38,7 @@ app.get('/api/dates/tomorrow', (req, res) => {
 
     const dateTomorrow = dayjs().add(1, "day").format("dddd MMM DD, YYYY");
   
-    res.json({ "Tomorrow's date": dateTomorrow });
+    res.status(200).json({ "Tomorrow's date": dateTomorrow });
   });
 
 
@@ -45,7 +47,7 @@ app.get('/api/dates/yesterday', (req, res) => {
 
     const dateYesterday = dayjs().subtract(1, "day").format("dddd MMM DD, YYYY");
   
-    res.json({ "Yesterday's date": dateYesterday });
+    res.status(200).json({ "Yesterday's date": dateYesterday });
   });
 
 
@@ -54,18 +56,22 @@ app.get('/api/dates/yesterday', (req, res) => {
 app.get('/api/day-of-week/:year/:month/:day', (req, res) => {
 
     const year = req.params.year;
-    console.log(year)
+    console.log(`"Year:" ${year}`)
     // The month index needs to be adjusted as get or set for the month accepts numbers from 0 to 11
-    const month = req.params.month - 1;
-    console.log(month)
+    const month = req.params.month;
+    console.log(`"Month:" ${month}`)
     const day = req.params.day;
-    console.log(day)
+    console.log(`"Day:" ${day}`)
     // Create a new object for the date
-    const date = dayjs(new Date(year, month, day));
-    console.log(date)
-    const dayOfTheWeek = date.format("dddd");
+    // const date = dayjs(new Date(year, month, day));
+    
+    const date = `${year}-${month}-${day}`;
+
+    console.log(`"New date:" ${date}`)
+    const dayOfTheWeek = dayjs.weekday().date;
+    console.log(`"Days of the week:" ${dayOfTheWeek}`)
   
-    res.json({ "day of the week": dayOfTheWeek });
+    res.status(200).json({ "day of the week": dayOfTheWeek.format("dddd") });
   });
 
 
@@ -81,16 +87,16 @@ app.get('/api/current-time', (req, res) => {
 
     const currentTime = dayjs().format("h:mm:ss A");
 
-    res.json({ "The current time is": currentTime });
+    res.status(200).json({ "The current time is": currentTime });
 
   } else if (timeFormat === "24" || timeFormat === undefined) {
 
     const currentTime = dayjs().format("H:mm:ss");
 
-    res.json({ "The current time is": currentTime });
+    res.status(200).json({ "The current time is": currentTime });
   } else {
 
-    res.json({ "error": "Please enter format to be 12 hour or 24 hour clock " });
+    res.status(200).json({ "error": "Please enter format to be 12 hour or 24 hour clock " });
   }
 });
 
