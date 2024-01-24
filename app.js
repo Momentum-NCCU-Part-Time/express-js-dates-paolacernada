@@ -4,6 +4,8 @@ const dayjs = require('dayjs');
 //import dayjs from 'dayjs' // ES 2015
 dayjs().format()
 
+var weekday = require('dayjs/plugin/weekday')
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -68,7 +70,7 @@ app.get('/api/day-of-week/:year/:month/:day', (req, res) => {
     const date = `${year}-${month}-${day}`;
 
     console.log(`"New date:" ${date}`)
-    const dayOfTheWeek = dayjs.weekday().date;
+    const dayOfTheWeek = dayjs(date);
     console.log(`"Days of the week:" ${dayOfTheWeek}`)
   
     res.status(200).json({ "day of the week": dayOfTheWeek.format("dddd") });
