@@ -58,22 +58,21 @@ app.get('/api/dates/yesterday', (req, res) => {
 app.get('/api/day-of-week/:year/:month/:day', (req, res) => {
 
     const year = req.params.year;
-    console.log(`"Year:" ${year}`)
-    // The month index needs to be adjusted as get or set for the month accepts numbers from 0 to 11
+    // console.log(`"Year:" ${year}`)
+
     const month = req.params.month;
-    console.log(`"Month:" ${month}`)
+    // console.log(`"Month:" ${month}`)
+
     const day = req.params.day;
-    console.log(`"Day:" ${day}`)
-    // Create a new object for the date
-    // const date = dayjs(new Date(year, month, day));
+    // console.log(`"Day:" ${day}`)
     
     const date = `${year}-${month}-${day}`;
+    // console.log(`"Input date:" ${date}`)
 
-    console.log(`"New date:" ${date}`)
     const dayOfTheWeek = dayjs(date);
-    console.log(`"Days of the week:" ${dayOfTheWeek}`)
+    // console.log(`"Date interpreted by dayjs:" ${dayOfTheWeek}`)
   
-    res.status(200).json({ "day of the week": dayOfTheWeek.format("dddd") });
+    res.status(200).json({ "day of the week": dayOfTheWeek.format("dddd ") });
   });
 
 
